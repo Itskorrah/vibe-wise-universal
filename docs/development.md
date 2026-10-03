@@ -1,3 +1,7 @@
+> Preserved upstream development history. For this derived project use
+> [Universal development](development-universal.md) and [current compatibility](compatibility.md).
+> Historical model evaluations below do not establish cross-agent parity.
+
 # Development
 
 V1 uses Claude Code skills, Markdown instructions, one read-only Python hook,

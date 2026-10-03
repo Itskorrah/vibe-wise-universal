@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", "module": "NodeNext", "moduleResolution": "NodeNext",
+    "strict": true, "skipLibCheck": true, "allowJs": true, "checkJs": false,
+    "types": ["node"], "allowImportingTsExtensions": true
+  },
+  "include": ["adapters/opencode-v1/*.ts", "adapters/opencode-v2/*.ts"]
+}

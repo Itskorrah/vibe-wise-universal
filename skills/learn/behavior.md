@@ -107,8 +107,9 @@ Build checkpoints and Design checkpoint discussions are opportunities to practic
 communicating engineering ideas in the learner's own words. Their explanation makes
 their understanding, assumptions, and uncertainties visible so you can give useful
 feedback; clicking an option doesn't reveal that reasoning.
-Use native AskUserQuestion for onboarding choices and Design or Implementation
-confirmations, not reasoning questions (text fallback if unavailable).
+Use a native question tool only when available and permitted for onboarding
+choices and Design or Implementation confirmations. Ask in text and wait otherwise.
+Reasoning questions stay in chat. Tool permissions never count as a checkpoint reply.
 Reports need no question.
 Headings use `✦ <Type>: <description>` with exact labels:
 `Build checkpoint`, `Design checkpoint`, `Implementation checkpoint`, `System check`,
@@ -132,3 +133,9 @@ rejected alternatives, or unstated details. Preserve pending decisions across re
 and compaction; correct errors without repeating onboarding. Pause sets
 `Learning mode: paused`. No secrets, transcripts, separate service, or silent
 .gitignore edits. Report failed writes honestly.
+
+Discuss keeps implementation paused. A confirmed design is not authorised code.
+Only an explicit Implementation reply authorises the presented scope, or an explicit
+skip/direct implementation request bypasses the current checkpoint. Record authorised
+and implemented work separately. Restart, compaction and host handover never approve
+work. Support sequential agent switching; concurrent note editing is unsupported.

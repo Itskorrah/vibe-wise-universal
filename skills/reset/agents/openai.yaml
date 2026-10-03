@@ -1,0 +1,5 @@
+interface:
+  display_name: "VibeWise Reset"
+  short_description: "Preview and confirm resetting only project learning notes"
+policy:
+  allow_implicit_invocation: false

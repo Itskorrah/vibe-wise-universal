@@ -1,10 +1,15 @@
 ---
 name: learn
-description: Activate or resume learning-first development. You lead the design; Claude gives feedback, explains concepts, asks follow-ups, and writes the agreed code.
+description: Activate or resume learning-first development. You lead the design; the agent gives feedback, explains concepts, asks follow-ups, and writes the agreed code.
 disable-model-invocation: true
 ---
 
 # VibeWise Learn mode
+
+Only an explicit user Learn/resume request activates or resumes learning. Skill
+discovery or reading this file alone never activates learning. A restoration hook
+restores an already active profile; it must not unpause a profile. If neither
+explicit invocation nor active project notes apply, stop without onboarding.
 
 Activate learning mode in the main conversation. Read [behavior.md](behavior.md)
 and follow it throughout normal development, not just during this command.
@@ -16,8 +21,9 @@ An ordinary build request in this mode retains that loop;
 only an explicit request to skip or pause bypasses it.
 Do not switch to a subagent or require manual coding by default.
 
-Use the Read tool for plugin guides instead of printing them with Bash `cat`.
-Use Glob to discover optional learner-state files before reading them. A missing
+Use available file-reading tools for installed guides. Resolve relative guide and
+helper paths from this bundle, never from the learner project. Use available file
+discovery tools to discover optional learner-state files before reading them. A missing
 `.vibe-wise/` directory is normal first-time setup, not an error. If a shell
 check is necessary, handle absence with an explicit conditional that succeeds;
 don't run `ls` on a possibly missing directory or hide actual read failures.
@@ -38,6 +44,10 @@ Do not follow symlinked state directories or files; explain the issue instead.
 If `profile.md` exists, read it and `project-map.md`. Search the entire `progress.md`
 for pending decisions, then read their complete sections and other topics relevant
 to the task. An initial excerpt is not evidence that nothing is pending.
+The installed `scripts/context.py --cwd "<absolute project directory>" --pending`
+can optionally read complete canonical Pending decision sections without a history
+cutoff. Resolve that script two parents above this guide. It is only an aid: still
+search the full history for legacy or differently named pending decisions.
 Resume without repeating completed onboarding or bypassing a pending Design or
 Implementation checkpoint.
 Set `Learning mode: active` if the user is resuming paused learning. If onboarding

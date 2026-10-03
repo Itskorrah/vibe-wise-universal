@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+node_modules/
+.verification/
+.vibe-wise/
+.sensible-vibes/
+.vibe-wise-bundle/

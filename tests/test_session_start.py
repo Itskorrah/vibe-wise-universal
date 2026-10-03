@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -49,11 +50,16 @@ class SessionStartTests(unittest.TestCase):
             "cwd": str(cwd or self.project),
         })
         result = subprocess.run(
-            REGISTRATION["hooks"][0]["command"], shell=True,
+            # Resolve the registration template without relying on a POSIX shell on Windows.
+            [sys.executable, *shlex.split(REGISTRATION["hooks"][0]["command"].replace(
+                "${CLAUDE_PLUGIN_ROOT}", ROOT.as_posix()))[1:]],
             input=payload, text=True, capture_output=True, timeout=5,
             # The hook needs a Python executable and its plugin location, not the
             # developer's credentials or unrelated environment configuration.
             env={
+                # Windows Python 3.10 needs SystemRoot for OS random initialization.
+                **{key: os.environ[key] for key in ("SystemRoot", "WINDIR")
+                   if key in os.environ},
                 "PATH": os.pathsep.join((str(Path(sys.executable).parent), os.defpath)),
                 "CLAUDE_PLUGIN_ROOT": str(ROOT),
             }, cwd=self.root,
@@ -130,7 +136,12 @@ class SessionStartTests(unittest.TestCase):
 
     def test_symlinked_new_state_does_not_fall_back_to_legacy(self):
         self.state().rename(self.project / ".sensible-vibes")
-        (self.project / ".vibe-wise").symlink_to(self.root / "missing", target_is_directory=True)
+        try:
+            (self.project / ".vibe-wise").symlink_to(self.root / "missing", target_is_directory=True)
+        except OSError as error:
+            if getattr(error, "winerror", None) == 1314:
+                self.skipTest("Windows symlink privilege unavailable; exercised in Linux/macOS CI")
+            raise
         self.assertIsNone(self.run_hook())
 
     def test_nested_repository_and_worktree_do_not_borrow_parent_profile(self):
@@ -222,14 +233,24 @@ class SessionStartTests(unittest.TestCase):
         outside = self.root / "outside.md"
         outside.write_text("Learning mode: active\nPRIVATE")
         (state / "profile.md").unlink()
-        (state / "profile.md").symlink_to(outside)
+        try:
+            (state / "profile.md").symlink_to(outside)
+        except OSError as error:
+            if getattr(error, "winerror", None) == 1314:
+                self.skipTest("Windows symlink privilege unavailable; exercised in Linux/macOS CI")
+            raise
         self.assertIsNone(self.run_hook())
 
     def test_symlinked_state_directory_is_not_read(self):
         state = self.state()
         alternate = self.root / "alternate"
         alternate.mkdir()
-        (alternate / ".vibe-wise").symlink_to(state, target_is_directory=True)
+        try:
+            (alternate / ".vibe-wise").symlink_to(state, target_is_directory=True)
+        except OSError as error:
+            if getattr(error, "winerror", None) == 1314:
+                self.skipTest("Windows symlink privilege unavailable; exercised in Linux/macOS CI")
+            raise
         self.assertIsNone(self.run_hook(cwd=alternate))
 
     def test_hook_never_changes_state(self):

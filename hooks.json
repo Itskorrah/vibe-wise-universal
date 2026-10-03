@@ -1,0 +1,1 @@
+{"vibe-wise-restoration":{"PreInvocation":[{"type":"command","command":"python3 adapters/antigravity/pre_invocation.py","timeout":5}]}}

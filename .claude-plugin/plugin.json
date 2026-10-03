@@ -1,9 +1,15 @@
 {
   "name": "vibe-wise",
-  "version": "0.1.43",
-  "description": "You build. AI writes. Learn how to build software while Claude writes the code.",
-  "author": { "name": "Noah Kim" },
-  "repository": "https://github.com/nykooi1/vibe-wise",
+  "version": "0.2.0",
+  "description": "Learning-first development across coding agents, derived from VibeWise.",
+  "author": {
+    "name": "Noah Kim"
+  },
+  "repository": "https://github.com/Itskorrah/vibe-wise-universal",
   "license": "MIT",
-  "keywords": ["learning", "architecture", "engineering"]
+  "keywords": [
+    "learning",
+    "architecture",
+    "engineering"
+  ]
 }

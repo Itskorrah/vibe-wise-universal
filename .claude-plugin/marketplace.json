@@ -1,6 +1,8 @@
 {
   "name": "vibe-wise",
-  "owner": { "name": "Noah Kim" },
+  "owner": {
+    "name": "Itskorrah"
+  },
   "metadata": {
     "description": "VibeWise: learn how to build while AI writes the code."
   },
@@ -8,7 +10,7 @@
     {
       "name": "vibe-wise",
       "source": "./",
-      "description": "Learn how to build software while Claude writes the code."
+      "description": "Cross-agent VibeWise, derived from Noah Kim's original."
     }
   ]
 }
