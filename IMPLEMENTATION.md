@@ -18,7 +18,9 @@ Fork and upstream match. Branch: `feat/cross-agent-universal`.
   contract-test environment (preserve SystemRoot/WINDIR for OS initialization).
 
 Do not activate Learn in this implementation session. Installation is not activation.
-No releases, packages, merges, upstream writes or system configuration changes.
+No releases, packages, upstream writes or system configuration changes.
+Follow-up authorized on 2026-10-03: refresh README and merge PR #1 into the fork's
+main branch after final checks pass. This supersedes the original no-merge scope.
 
 Current verification: 61 Python tests pass (7 Windows symlink privilege skips);
 6 JavaScript tests pass; both SDK typechecks and Claude manifests pass.
@@ -37,4 +39,4 @@ https://github.com/Itskorrah/vibe-wise-universal/actions/runs/37116119005.
 Windows CI exercised all 61 Python tests with no skips; Linux/macOS skipped only
 the Windows-specific junction test. All three SDK/typecheck/bridge jobs passed.
 OpenCode and Antigravity live sessions unavailable. No authentication/system
-settings were changed. Tests and fixtures remain under ignored .verification/.
+settings were changed. Live logs and host fixtures remain under ignored .verification/.
