@@ -1,0 +1,1 @@
+{"name":"vibe-wise","version":"0.2.0","description":"Cross-agent learning-first development, derived from VibeWise.","author":{"name":"Noah Kim (original); Itskorrah (derived project)"},"license":"MIT","extensions":{"com.openai":{"skills":"./skills/","hooks":"./adapters/codex/hooks.json"}}}

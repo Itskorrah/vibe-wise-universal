@@ -1,0 +1,1 @@
+{"hooks":{"SessionStart":[{"matcher":"^(startup|resume|clear|compact)$","hooks":[{"type":"command","command":"python3 \"${PLUGIN_ROOT}/adapters/codex/session_start.py\"","timeout":5}]}]}}

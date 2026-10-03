@@ -1,45 +1,54 @@
 <img src=".claude-plugin/icon.svg" alt="VibeWise brain with code brackets" width="96" height="96">
 
-# VibeWise
+# VibeWise Universal
 
 **You build. AI writes.**
 
-A Claude Code plugin that puts learning first and keeps you in control while AI writes the code you designed. Claude **asks for your approach first**, helps you examine tradeoffs, and explains unfamiliar concepts. You shape the design and decide when it's ready to implement. Claude writes the code, then explains what it changed and why.
+A derived MIT version of [Noah Kim's VibeWise](https://github.com/nykooi1/vibe-wise),
+with the same learner-owned design, teaching, checkpoints and local notes across
+Claude Code, Codex, OpenCode V1/V2, Google Antigravity and portable coding agents.
+The original attribution and demonstrations are preserved.
 
-For anyone who wants to learn as they build—whether you're an aspiring engineer, a junior developer, or an experienced engineer exploring an unfamiliar stack. Practice planning how the pieces fit together, anticipating failures, and checking the result while keeping ownership of the decisions.
+The learner designs; the agent explains unfamiliar concepts, helps when requested,
+and implements only the agreed scope. Installation alone never starts learning.
+Design confirmation is separate from implementation approval. Restarting, compaction
+and switching hosts never approve code. Pause/resume and reset remain explicit.
 
 ## Get started
 
-You need [Claude Code](https://code.claude.com/docs/en/setup) and
-[Python 3](https://www.python.org/downloads/). VibeWise uses Python to restore
-learning context and reset learning notes. No extra Python packages are needed.
+Use Python 3.10+ and an existing learner project. From this source checkout:
 
-VibeWise has been approved for Anthropic's Claude directory, but isn't listed in
-the public community marketplace yet. I expect it to appear soon. In the meantime,
-install it in Claude Code through my GitHub marketplace:
-
-Run these commands **one at a time** in Claude Code. First, add the marketplace:
-
-```text
-/plugin marketplace add nykooi1/vibe-wise
+```sh
+python scripts/install.py install --host codex --project "/absolute/learner-project" --dry-run
+python scripts/install.py install --host codex --project "/absolute/learner-project"
+python scripts/install.py doctor --host codex --project "/absolute/learner-project"
 ```
 
-After it finishes, install the plugin:
+In PowerShell, use a quoted path such as `"C:\dev\my-project"`. Use `python3` on
+macOS/Linux if `python` is unavailable. Native hook commands use the actual interpreter.
+Choose `claude`, `codex`, `opencode-v1`, `opencode-v2`, `antigravity`,
+`antigravity-manual` or `portable`. Source checkout relocation/removal is safe after
+installation. Updates and removal preserve unrelated content and learner notes.
 
-```text
-/plugin install vibe-wise@vibe-wise
-```
+| Host | Explicit entry point | Integration status |
+|---|---|---|
+| Claude Code | `/vibe-wise:learn`, `/vibe-wise:reset` | Native plugin; live parity pending |
+| Codex | `$vibe-wise-learn`, `$vibe-wise-reset` | Native skills + trusted lifecycle hooks; live parity pending |
+| OpenCode V1 | `/vibe-wise-learn`, `/vibe-wise-reset` | Separate V1 plugin; live parity pending |
+| OpenCode V2 | `/vibe-wise-learn`, `/vibe-wise-reset` | Separate V2 plugin; live parity pending |
+| Antigravity | Explicit VibeWise Learn / Reset skill | Dedicated native plugin; live parity pending |
+| Antigravity without hooks | `/vibe-wise-learn`, `/vibe-wise-reset` | Manual restoration fallback |
+| Other compatible agents | Installed `LEARN.md` / `RESET.md` | Portable/manual; dependable file access required |
 
-**Enable automatic updates:** open `/plugin` → **Marketplaces** → **vibe-wise** →
-**Enable auto-update**. This is off by default for third-party marketplaces.
+[Exact host installation instructions](docs/installation.md) include plugin launch,
+trust, invocation, explicit-resume fallback, diagnostics, updates and removal.
+[Compatibility and evidence](docs/compatibility.md) distinguish deterministic tests
+from actual model behaviour and record tested versions and limitations.
 
-Restart Claude Code in the project you want to work on, then run:
-
-```text
-/vibe-wise:learn
-```
-
-Setup asks one question at a time. Use the arrow keys and Enter for choices; pick **Use defaults** to skip preference setup. Then ask Claude to build something. Starting fresh or joining an unfamiliar repository both work. For an existing repository, Claude first inspects the code and sketches a small system map.
+Shared notes stay in `.vibe-wise/profile.md`, `progress.md`, `project-map.md`.
+Legacy `.sensible-vibes/` notes work in place without migration. Sequential host
+switching is supported; concurrent note editing is not. No backend, database,
+telemetry, separate teaching model, custom UI or additional product model calls.
 
 ## What it feels like
 

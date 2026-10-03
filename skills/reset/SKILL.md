@@ -14,20 +14,24 @@ code, dependencies, Git history, other projects, and plugin installation stay in
    `<absolute project directory>` with its actual absolute path, safely quoted;
    do not pass the placeholder literally.
 
+   Use Python 3: `python3` on Unix or `python` / `py -3` on Windows. Resolve
+   `<installed bundle>` from this guide's location (two parents), not the cwd.
+
    ```sh
-   python3 "${CLAUDE_PLUGIN_ROOT}/skills/reset/reset.py" --cwd "<absolute project directory>"
+   python "<installed bundle>/skills/reset/reset.py" --cwd "<absolute project directory>"
    ```
 
    The helper uses Learn's project-boundary and legacy-state lookup. If it reports
-   no notes, explain there's nothing to reset and suggest `/vibe-wise:learn`.
+   no notes, explain there's nothing to reset and suggest the host's explicit Learn entry point.
    On any error, stop and explain; don't improvise deletion commands.
 
 2. Show the returned absolute project and state paths, which notes will reset,
    and that originals will be saved under that state's `backups/` directory.
-   Use AskUserQuestion: header `Reset`, one question, `multiSelect: false`, options
+   Use an available, permitted native question tool (Claude AskUserQuestion:
+   header `Reset`, one question, `multiSelect: false`), with options
    **Cancel** (keep learning notes) and **Reset learning** (back up notes and restart
    onboarding). Ask whether to reset learning for the named project. If the picker
-   is unavailable, ask the same question in text. Wait for an explicit answer.
+   is unavailable or not permitted, ask the same question in text. Wait for an explicit answer.
    Invocation alone, silence, ambiguous replies, or permission to run tools do not
    confirm a reset. Cancel makes no changes, including to learner notes.
 
@@ -35,14 +39,14 @@ code, dependencies, Git history, other projects, and plugin installation stay in
    and the preview's exact `confirmation` value, safely quoted:
 
    ```sh
-   python3 "${CLAUDE_PLUGIN_ROOT}/skills/reset/reset.py" --cwd "<original cwd>" --confirm "<confirmation>"
+   python "<installed bundle>/skills/reset/reset.py" --cwd "<original cwd>" --confirm "<confirmation>"
    ```
 
    If the target or notes changed, preview again and get new confirmation. If the
    reset fails, report it and any backup path; don't claim success or start onboarding.
    Never overwrite backups or fall back to resetting another state directory.
 
-4. On success, show the backup path. Read `${CLAUDE_PLUGIN_ROOT}/skills/learn/SKILL.md` and resume Learn with
+4. On success, show the backup path. Read [Learn](../learn/SKILL.md) and resume Learn with
    the new incomplete profile. Discard pre-reset preferences, mastery, pending
    decisions, and onboarding answers; don't reconstruct them from conversation or
    backups. Inspect actual code to rebuild the map. Begin fresh onboarding with

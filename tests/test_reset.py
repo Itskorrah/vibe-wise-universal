@@ -171,7 +171,12 @@ class ResetTests(unittest.TestCase):
         outside = self.root / "outside"
         outside.mkdir()
         target, originals = self.notes(outside)
-        (self.project / ".vibe-wise").symlink_to(target, target_is_directory=True)
+        try:
+            (self.project / ".vibe-wise").symlink_to(target, target_is_directory=True)
+        except OSError as error:
+            if getattr(error, "winerror", None) == 1314:
+                self.skipTest("Windows symlink privilege unavailable; exercised in Linux/macOS CI")
+            raise
         self.assertEqual(self.preview()["status"], "no_notes")
         self.assert_originals(target, originals)
 
@@ -179,7 +184,12 @@ class ResetTests(unittest.TestCase):
         state, _ = self.notes()
         path = state / "profile.md"
         path.unlink()
-        path.symlink_to(state / "progress.md")
+        try:
+            path.symlink_to(state / "progress.md")
+        except OSError as error:
+            if getattr(error, "winerror", None) == 1314:
+                self.skipTest("Windows symlink privilege unavailable; exercised in Linux/macOS CI")
+            raise
         with self.assertRaisesRegex(ValueError, "non-regular"):
             self.preview()
         path.unlink()
@@ -192,7 +202,12 @@ class ResetTests(unittest.TestCase):
         state, originals = self.notes()
         outside = self.root / "outside"
         outside.mkdir()
-        (state / "backups").symlink_to(outside, target_is_directory=True)
+        try:
+            (state / "backups").symlink_to(outside, target_is_directory=True)
+        except OSError as error:
+            if getattr(error, "winerror", None) == 1314:
+                self.skipTest("Windows symlink privilege unavailable; exercised in Linux/macOS CI")
+            raise
         with self.assertRaisesRegex(ValueError, "Backup path"):
             self.confirm()
         self.assert_originals(state, originals)

@@ -1,0 +1,16 @@
+{
+  "name": "vibe-wise-universal-dev",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@opencode-ai/plugin": "1.18.34",
+    "@opencode/plugin": "2.0.22",
+    "@types/node": "24.0.0",
+    "typescript": "5.9.3"
+  }
+}
