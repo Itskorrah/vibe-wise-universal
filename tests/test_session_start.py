@@ -57,6 +57,9 @@ class SessionStartTests(unittest.TestCase):
             # The hook needs a Python executable and its plugin location, not the
             # developer's credentials or unrelated environment configuration.
             env={
+                # Windows Python 3.10 needs SystemRoot for OS random initialization.
+                **{key: os.environ[key] for key in ("SystemRoot", "WINDIR")
+                   if key in os.environ},
                 "PATH": os.pathsep.join((str(Path(sys.executable).parent), os.defpath)),
                 "CLAUDE_PLUGIN_ROOT": str(ROOT),
             }, cwd=self.root,
