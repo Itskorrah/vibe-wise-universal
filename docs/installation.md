@@ -159,5 +159,6 @@ objects after removing only the VibeWise fragment; unrelated contents stay intac
 The source checkout may be moved/deleted after installation. If the **target project**
 moves, run update from this source at its new location to refresh absolute native
 hook paths. When changing computers or interpreters, pass the new Python executable.
-Windows deterministic tests ran locally; macOS/Linux checks are configured in CI and
-must be reported as pending until their runs complete.
+Windows deterministic tests ran locally. Cross-platform Python and OpenCode contract
+checks passed in CI on Windows, macOS and Linux; see `docs/compatibility.md` for
+versions, skips and the separate live-conversation verification gaps.

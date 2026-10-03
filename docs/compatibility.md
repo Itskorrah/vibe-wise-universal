@@ -3,12 +3,13 @@
 Recorded 2026-10-03 on Windows, Python **3.13.5**, Node **24.1.0**.
 SDK contract snapshots: **@opencode-ai/plugin 1.18.34** (V1) and
 **@opencode/plugin 2.0.22** (V2). These are SDK versions, not tested OpenCode binaries.
-CI targets Python 3.10/3.13 and Node 24.15 on Windows, Linux and macOS.
+CI passed Python 3.10/3.13 and Node 24.15 on Windows, Linux and macOS
+([nine successful jobs](https://github.com/Itskorrah/vibe-wise-universal/actions/runs/37116119005)).
 
 | Host / capability | Status | Evidence and limitation |
 |---|---|---|
 | Shared discovery, pause, partial onboarding pointers, legacy boundaries, reset | Verified | Deterministic Python tests. Behavioural understanding is not inferred from these tests. |
-| Installation, update/remove ownership, config preservation, relocated helper resources | Verified | Real filesystem and process tests on Windows. Other platforms are configured in CI. |
+| Installation, update/remove ownership, config preservation, relocated helper resources | Verified | Real filesystem and process tests on Windows, Linux and macOS, locally and in CI. |
 | Claude Code native plugin and startup/resume/clear/compact/fork contracts | Implemented but live verification pending | Installed hook commands and JSON contracts tested. Project-local CLI **2.1.288** attempted; OAuth session expired and could not refresh before a model request. Pre-existing global CLI **1.0.119** lacks current plugin CLI support. |
 | Codex native lifecycle adapter and standalone skills | Implemented but live verification pending | Project-local CLI **0.160.0** authenticated; a model received the bootstrap via explicitly configured native hook, attempted the installed Learn guide, and kept code paused. Environment policy blocked every local file read, preventing full note restoration/parity tests. Global CLI **0.46.0** predates current packaging. |
 | Codex bootstrap delivery under explicit test hook configuration | Verified | Actual model's guide-read attempt matches installed guide path supplied by the hook. This narrow result does not verify whole-history reads, onboarding or project discovery/trust. |
@@ -29,6 +30,13 @@ CI targets Python 3.10/3.13 and Node 24.15 on Windows, Linux and macOS.
   failures described in upstream-review.md.
 - Expanded `python -m unittest discover -s tests -q`: **61 tests, passing, 7 skipped**
   due to Windows symlink creation privilege. The Windows junction protection test passed without that privilege. No application source is edited by tests.
+- Cross-platform CI: all **9 jobs passed**. Each Python job ran 61 tests on
+  Python 3.10/3.13. Windows CI had no skips; Linux/macOS skipped the single
+  Windows-only junction test, exercising the symlink cases skipped locally.
+  The three Node 24.15 jobs passed typechecking, all 6 bridge/plugin tests and
+  the production-only dependency audit. The initial Windows 3.10 test harness
+  omitted SystemRoot; retaining required Windows system paths fixed OS random
+  initialization without changing the product or security configuration.
 - `npm test`: **6 JavaScript tests passed**, including actual Python bridge execution.
 - `npm run typecheck`: passed against both separately pinned native SDK contracts.
 - Native hook command execution in installed bundles passed; this proves process/output
