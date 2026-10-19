@@ -14,6 +14,16 @@ and implements only the agreed scope. Installation alone never starts learning.
 Design confirmation is separate from implementation approval. Restarting, compaction
 and switching hosts never approve code. Pause/resume and reset remain explicit.
 
+## Use with Codex — copy-and-paste workflows
+
+Open your **target project** in Codex and paste the prompt. It will set up or reuse the relevant capability, **verify** integration and start its real workflow. Any required input or product-specific approval remains yours.
+
+```text
+In my current Codex project, set up and use https://github.com/Itskorrah/vibe-wise-universal. Read the upstream README, AGENTS instructions where present and prompts/codex/setup-and-run.md. Check existing skills and Git state, favour project-local installation and preserve customisations. Use the upstream Python installer from a reviewed checkout to preview, then install the Codex learning skills into the open learner project (`python scripts/install.py install --host codex --project TARGET --dry-run`, then the supported install and doctor checks). Confirm the `$vibe-wise-learn` and `$vibe-wise-reset` entry points where the host supports them. Invoke learning mode for the actual codebase: introduce a short diagnosis of the next learning task, ask the learner what they want to understand, explain concepts and collaborate on the design. Do not implement application code before the learner's explicit implementation approval. The learner designs, the agent assists. Installation is not approval to code, and automatic Git merge authorisation applies only to approved implementation tasks; setup changes may be delivered if verified. Never silently enable trust/hooks, reset learner context or bypass learning checkpoints. Verify locally; for approved scoped changes commit, push, open a PR and merge where permitted, without bypassing security or required reviews. Do not rely on GitHub Actions. Report results and blockers.
+```
+
+Further copyable prompts: [full setup and run](prompts/codex/setup-and-run.md) · [update](prompts/codex/update.md) · [resume](prompts/codex/resume.md) · [extended autonomous](prompts/codex/autonomous.md).
+
 ## Get started
 
 Use Python 3.10+ and an existing learner project. Clone this derived repository:
